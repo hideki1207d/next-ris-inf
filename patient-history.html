@@ -1,6 +1,6 @@
 ---
 layout: default
-title: vPatient システム提案 - 受付
+title: vPatient システム提案 - 患者履歴
 ---
 
 <style>
@@ -66,30 +66,48 @@ title: vPatient システム提案 - 受付
 
 .content-wrapper {
     margin-top: 60px;
-    padding-top: 0;
+    padding-top: 20px;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+.patient-history-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 1rem 0;
 }
 
-.video-button {
-    margin-top: 10px; 
-    padding: 10px 20px; 
-    font-size: 16px; 
-    background: #1e40af; 
-    color: white; 
-    border: none; 
-    border-radius: 5px; 
-    cursor: pointer;
-    transition: all 0.3s ease;
+.patient-history-content h2 {
+    color: #1e40af;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
 }
 
-.video-button:hover {
-    background: #1d4ed8;
-    transform: scale(1.02);
+.patient-history-content p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: #374151;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+}
+
+.feature-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f3f4f6;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.feature-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #059669;
+    font-weight: bold;
 }
 </style>
 
@@ -112,90 +130,75 @@ function navigateToPage(page) {
 }
 
 function setActiveTab() {
-    // 現在のページのファイル名を取得
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     
-    // 全てのタブからactiveクラスを削除
     document.querySelectorAll('.tab-item').forEach(tab => {
         tab.classList.remove('active');
     });
     
-    // 現在のページに対応するタブにactiveクラスを追加
     const activeTab = document.querySelector(`[data-page="${currentPage}"]`);
     if (activeTab) {
         activeTab.classList.add('active');
     } else {
-        // デフォルトで「はじめに」をアクティブにする
         document.querySelector('[data-page="index.html"]').classList.add('active');
     }
 }
 
-// シンプルな動画再生関数
-function playVideo() {
-    const video = document.getElementById('mainVideo');
-    if (video) {
-        video.play().catch(function(error) {
-            console.log('動画再生エラー:', error);
-            alert('動画の再生に失敗しました。下のリンクから直接動画ファイルを開いてください。');
-        });
-    }
-}
-
-// ページ読み込み時の処理
 document.addEventListener('DOMContentLoaded', function() {
-    // アクティブタブを設定
     setActiveTab();
 });
 </script>
 
 <div class="content-wrapper">
-    <!-- 動画セクション -->
-    <div class="slide-wrapper" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 0; margin: 0;">
-        <!-- シンプルな動画要素 -->
-        <video 
-            id="mainVideo" 
-            controls 
-            loop
-            autoplay
-            muted
-            preload="auto"
-            playsinline
-            style="
-                width: 90%; 
-                height: auto; 
-                max-width: 1200px; 
-                max-height: calc(100vh - 120px); 
-                object-fit: contain; 
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                margin-top: 0;
-            "
-        >
-            <source src="uketuke.mp4" type="video/mp4">
-            <source src="./uketuke.mp4" type="video/mp4">
-            動画を再生できません。
-        </video>
-
-        <!-- 直接リンク -->
-        <div style="margin-top: 0.5rem; text-align: center;">
-            <a href="uketuke.mp4" target="_blank" style="
-                display: inline-block;
-                padding: 6px 12px;
-                background: #059669;
-                color: white;
-                text-decoration: none;
-                border-radius: 4px;
-                font-size: 12px;
-                font-weight: bold;
-            ">動画ファイルを開く</a>
+    <div class="slide-wrapper">
+        <div class="patient-history-content">
+            <h2>患者履歴管理システム</h2>
+            <p>vPatientシステムでは、患者様の過去の診療履歴を効率的に管理・参照できる包括的な履歴管理機能を提供します。</p>
+            
+            <h3>主な機能</h3>
+            <ul class="feature-list">
+                <li>過去の診療記録の一覧表示</li>
+                <li>検査結果の履歴管理</li>
+                <li>処方薬の履歴追跡</li>
+                <li>診断履歴の時系列表示</li>
+                <li>画像診断結果の保存・参照</li>
+                <li>アレルギー情報の管理</li>
+                <li>既往歴の詳細記録</li>
+            </ul>
         </div>
     </div>
 
     <div class="slide-wrapper">
-        {% include_relative slide/recept/receptkinou.html %}
+        <div class="patient-history-content">
+            <h2>履歴検索・フィルタリング</h2>
+            <p>豊富な検索オプションにより、必要な情報を素早く見つけることができます。</p>
+            
+            <h3>検索機能</h3>
+            <ul class="feature-list">
+                <li>日付範囲での絞り込み</li>
+                <li>診療科別の履歴表示</li>
+                <li>症状・診断名での検索</li>
+                <li>担当医師での絞り込み</li>
+                <li>検査種別での分類表示</li>
+                <li>処方薬名での検索</li>
+            </ul>
+        </div>
     </div>
+
     <div class="slide-wrapper">
-        {% include_relative slide/recept/reception.html %}
+        <div class="patient-history-content">
+            <h2>データの可視化</h2>
+            <p>患者様の健康状態の変遷を視覚的に把握できるグラフ機能を提供します。</p>
+            
+            <h3>可視化機能</h3>
+            <ul class="feature-list">
+                <li>バイタルサインの推移グラフ</li>
+                <li>検査値の時系列変化</li>
+                <li>体重・血圧の変動表示</li>
+                <li>薬剤効果の追跡</li>
+                <li>症状の改善度合いの表示</li>
+                <li>治療経過のタイムライン</li>
+            </ul>
+        </div>
     </div>
 </div> 
