@@ -1,0 +1,22 @@
+{
+    "name": "Jekyll GitHub Pages",
+    "build": {
+      "dockerfile": "Dockerfile",
+      "context": ".."
+    },
+    "forwardPorts": [4000],
+    "postCreateCommand": "bundle install",
+    "postStartCommand": "pkill -f jekyll || true && bundle exec jekyll serve --host 0.0.0.0 --detach",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "rebornix.Ruby",
+          "GitHub.vscode-pull-request-github"
+        ],
+        "settings": {
+          "terminal.integrated.defaultProfile.linux": "bash"
+        }
+      }
+    }
+  }
+  

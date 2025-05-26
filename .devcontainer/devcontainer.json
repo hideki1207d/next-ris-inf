@@ -1,0 +1,20 @@
+{
+    "name": "Jekyll GitHub Pages",
+    "build": {
+      "dockerfile": "Dockerfile",
+      "context": ".."
+    },
+    "forwardPorts": [8080, 35729],
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "rebornix.Ruby",
+          "GitHub.vscode-pull-request-github"
+        ],
+        "settings": {
+          "terminal.integrated.defaultProfile.linux": "bash"
+        }
+      }
+    }
+  }
+  
