@@ -110,7 +110,15 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="content-wrapper">
     <!-- 動画セクション -->
     <div class="slide-wrapper" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 0; margin: 0;">
-        <video controls width="90%" style="max-width: 1200px; border: 1px solid #ccc;">
+        <video 
+            controls 
+            autoplay 
+            muted 
+            loop
+            preload="auto"
+            playsinline
+            width="90%" 
+            style="max-width: 1200px; border: 1px solid #ccc;">
             <source src="dounyu.mp4" type="video/mp4">
             動画を再生できません。
         </video>
