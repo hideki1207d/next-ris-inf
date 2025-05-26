@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主要機能の紹介</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .slide {
+            width: 100%;
+            min-height: 720px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-left: 6px solid #1e40af;
+            height: 100%;
+        }
+        .feature-icon {
+            background: rgba(30, 64, 175, 0.1);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .accent-line {
+            width: 60px;
+            height: 4px;
+            background-color: #f59e0b;
+            margin: 0.5rem 0 1.5rem 0;
+            border-radius: 2px;
+        }
+        .benefit-badge {
+            background: rgba(245, 158, 11, 0.15);
+            color: #d97706;
+            border-radius: 9999px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide p-12">
+        <!-- Heading -->
+        <div class="mb-10">
+            <h1 class="text-4xl font-bold text-blue-900">主要機能の紹介</h1>
+            <div class="accent-line"></div>
+            <p class="text-lg text-blue-700">2.4 受付機能 - 主な特徴と利点</p>
+        </div>
+        
+        <!-- Features Grid -->
+        <div class="grid grid-cols-2 gap-8">
+            <!-- Feature 1 -->
+            <div class="feature-card p-6">
+                <div class="feature-icon">
+                    <i class="fas fa-barcode text-3xl text-blue-600"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-blue-900 mb-2">バーコードによる患者受付</h2>
+                <p class="text-gray-700 mb-4">患者カードのバーコードをスキャンするだけで、迅速かつ正確に患者情報を呼び出し、受付処理を行うことが可能です。</p>
+                <div class="flex flex-wrap gap-2 mt-auto">
+                    <span class="benefit-badge">
+                        <i class="fas fa-clock mr-1"></i>受付時間短縮
+                    </span>
+                    <span class="benefit-badge">
+                        <i class="fas fa-check-circle mr-1"></i>入力ミス防止
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="feature-card p-6">
+                <div class="feature-icon">
+                    <i class="fas fa-search text-3xl text-blue-600"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-blue-900 mb-2">患者名による検索機能</h2>
+                <p class="text-gray-700 mb-4">患者名やIDの一部を入力するだけで、該当する患者情報をリアルタイムで検索できます。あいまい検索にも対応しています。</p>
+                <div class="flex flex-wrap gap-2 mt-auto">
+                    <span class="benefit-badge">
+                        <i class="fas fa-bolt mr-1"></i>高速検索
+                    </span>
+                    <span class="benefit-badge">
+                        <i class="fas fa-keyboard mr-1"></i>入力補完
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="feature-card p-6">
+                <div class="feature-icon">
+                    <i class="fas fa-layer-group text-3xl text-blue-600"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-blue-900 mb-2">同一患者の複数オーダー一括受付</h2>
+                <p class="text-gray-700 mb-4">1人の患者が複数の検査や診療科を受診する場合も、すべてのオーダーをまとめて一度に受付処理できます。</p>
+                <div class="flex flex-wrap gap-2 mt-auto">
+                    <span class="benefit-badge">
+                        <i class="fas fa-tasks mr-1"></i>作業効率化
+                    </span>
+                    <span class="benefit-badge">
+                        <i class="fas fa-users mr-1"></i>患者満足度向上
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="feature-card p-6">
+                <div class="feature-icon">
+                    <i class="fas fa-filter text-3xl text-blue-600"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-blue-900 mb-2">オーダーステータスでのフィルタリング</h2>
+                <p class="text-gray-700 mb-4">受付待ち、受付済、検査中など、各オーダーのステータスでリストをフィルタリングし、必要な情報に素早くアクセスできます。</p>
+                <div class="flex flex-wrap gap-2 mt-auto">
+                    <span class="benefit-badge">
+                        <i class="fas fa-eye mr-1"></i>視認性向上
+                    </span>
+                    <span class="benefit-badge">
+                        <i class="fas fa-sort-amount-down mr-1"></i>業務整理
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="mt-8 text-right text-sm text-gray-500">
+            <p>vPatient システム | 受付機能の詳細 2/3</p>
+        </div>
+    </div>
+</body>
+</html>

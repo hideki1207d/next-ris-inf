@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技術スタック</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .tech-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .tech-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 35px -5px rgba(0, 0, 0, 0.15);
+        }
+        .tech-badge {
+            background: linear-gradient(45deg, #6366f1, #4f46e5);
+            color: white;
+            border-radius: 20px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .accent-line {
+            width: 80px;
+            height: 6px;
+            background: linear-gradient(90deg, #f59e0b, #d97706);
+            margin: 1rem 0;
+            border-radius: 3px;
+        }
+        .frontend-gradient {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+        .backend-gradient {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        .tech-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .tech-item {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .tech-item:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 1);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .tech-item .tech-title {
+            color: #1f2937 !important;
+            font-weight: 800;
+        }
+        .tech-item .tech-description {
+            color: #374151 !important;
+            font-weight: 600;
+        }
+        .tech-item .tech-feature {
+            color: #4b5563 !important;
+            font-weight: 500;
+        }
+        .section-divider {
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, #e5e7eb, transparent);
+            position: relative;
+        }
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: #f59e0b;
+            border-radius: 50%;
+            border: 4px solid white;
+        }
+        .modern-badge {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #d97706;
+            border-radius: 20px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .feature-highlight {
+            background: rgba(59, 130, 246, 0.08);
+            border-left: 4px solid #3b82f6;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .feature-highlight .feature-title {
+            color: #1e40af !important;
+            font-weight: 700;
+        }
+        .feature-highlight .feature-desc {
+            color: #1e3a8a !important;
+            font-weight: 500;
+        }
+        .pulse-animation {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+        }
+        .tech-highlight {
+            animation: tech-float 4s ease-in-out infinite;
+        }
+        @keyframes tech-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide p-12">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center mb-4">
+                <div class="tech-badge mr-4">
+                    <i class="fas fa-code mr-2"></i>
+                    TECHNOLOGY STACK
+                </div>
+                <h1 class="text-4xl font-bold text-indigo-800">技術スタック</h1>
+            </div>
+            <div class="accent-line"></div>
+            <p class="text-lg text-gray-700">現代的でスケーラブルな技術による次世代システム構築</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-3 gap-8 h-auto">
+            <!-- Frontend Section -->
+            <div class="tech-card frontend-gradient p-8 text-white tech-highlight">
+                <div class="text-center mb-6">
+                    <div class="tech-icon bg-white bg-opacity-20 mx-auto pulse-animation">
+                        <i class="fas fa-laptop-code text-3xl text-white"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-2">フロントエンド</h2>
+                    <div class="modern-badge bg-white bg-opacity-20 text-blue-100 border-blue-200">
+                        Modern UI/UX
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="tech-item">
+                        <div class="flex items-center justify-center mb-3">
+                            <i class="fab fa-react text-3xl text-blue-500 mr-3"></i>
+                            <span class="font-bold text-xl tech-title">React</span>
+                        </div>
+                        <p class="text-sm tech-description">コンポーネントベース UI ライブラリ</p>
+                        <div class="mt-2 text-xs tech-feature">
+                            <i class="fas fa-check mr-1"></i>再利用性・保守性
+                        </div>
+                    </div>
+
+                    <div class="tech-item">
+                        <div class="flex items-center justify-center mb-3">
+                            <i class="fas fa-palette text-3xl text-cyan-500 mr-3"></i>
+                            <span class="font-bold text-xl tech-title">TailwindCSS</span>
+                        </div>
+                        <p class="text-sm tech-description">ユーティリティファースト CSS</p>
+                        <div class="mt-2 text-xs tech-feature">
+                            <i class="fas fa-check mr-1"></i>高速開発・レスポンシブ
+                        </div>
+                    </div>
+
+                    <div class="tech-item">
+                        <div class="flex items-center justify-center mb-3">
+                            <i class="fas fa-magic text-3xl text-purple-500 mr-3"></i>
+                            <span class="font-bold text-xl tech-title">Framer Motion</span>
+                        </div>
+                        <p class="text-sm tech-description">プロダクションレディ アニメーション</p>
+                        <div class="mt-2 text-xs tech-feature">
+                            <i class="fas fa-check mr-1"></i>UX向上・滑らかな動作
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="section-divider mx-auto"></div>
+
+            <!-- Backend Section -->
+            <div class="tech-card backend-gradient p-8 text-white tech-highlight">
+                <div class="text-center mb-6">
+                    <div class="tech-icon bg-white bg-opacity-20 mx-auto pulse-animation">
+                        <i class="fas fa-server text-3xl text-white"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-2">バックエンド</h2>
+                    <div class="modern-badge bg-white bg-opacity-20 text-green-100 border-green-200">
+                        Scalable Architecture
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="tech-item">
+                        <div class="flex items-center justify-center mb-3">
+                            <i class="fab fa-node-js text-3xl text-green-500 mr-3"></i>
+                            <span class="font-bold text-xl tech-title">Node.js</span>
+                        </div>
+                        <p class="text-sm tech-description">高性能 JavaScript ランタイム</p>
+                        <div class="mt-2 text-xs tech-feature">
+                            <i class="fas fa-check mr-1"></i>非同期処理・高速実行
+                        </div>
+                    </div>
+
+                    <div class="tech-item">
+                        <div class="flex items-center justify-center mb-3">
+                            <i class="fas fa-bolt text-3xl text-gray-800 mr-3"></i>
+                            <span class="font-bold text-xl tech-title">Next.js</span>
+                        </div>
+                        <p class="text-sm tech-description">React フルスタックフレームワーク</p>
+                        <div class="mt-2 text-xs tech-feature">
+                            <i class="fas fa-check mr-1"></i>SSR・API Routes
+                        </div>
+                    </div>
+
+                    <div class="tech-item">
+                        <div class="flex items-center justify-center mb-3">
+                            <i class="fas fa-database text-3xl text-emerald-500 mr-3"></i>
+                            <span class="font-bold text-lg tech-title">Supabase</span>
+                        </div>
+                        <p class="text-sm tech-description">認証・PostgreSQL データベース</p>
+                        <div class="mt-2 text-xs tech-feature">
+                            <i class="fas fa-check mr-1"></i>RLS・リアルタイム
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technology Benefits -->
+        <div class="mt-8 bg-white rounded-16 p-6 shadow-lg">
+            <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">
+                <i class="fas fa-star text-yellow-500 mr-2"></i>技術選定のメリット
+            </h3>
+            <div class="grid grid-cols-4 gap-4 text-sm">
+                <div class="feature-highlight">
+                    <div class="flex items-center font-semibold mb-1 feature-title">
+                        <i class="fas fa-rocket mr-2"></i>高速開発
+                    </div>
+                    <p class="feature-desc">モダンツールチェーンによる効率的な開発プロセス</p>
+                </div>
+                <div class="feature-highlight">
+                    <div class="flex items-center font-semibold mb-1 feature-title">
+                        <i class="fas fa-shield-alt mr-2"></i>セキュリティ
+                    </div>
+                    <p class="feature-desc">最新のセキュリティ標準と認証システム</p>
+                </div>
+                <div class="feature-highlight">
+                    <div class="flex items-center font-semibold mb-1 feature-title">
+                        <i class="fas fa-expand-arrows-alt mr-2"></i>スケーラビリティ
+                    </div>
+                    <p class="feature-desc">将来の拡張に対応する柔軟なアーキテクチャ</p>
+                </div>
+                <div class="feature-highlight">
+                    <div class="flex items-center font-semibold mb-1 feature-title">
+                        <i class="fas fa-wrench mr-2"></i>保守性
+                    </div>
+                    <p class="feature-desc">長期運用を見据えた技術選定とコード品質</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-6 flex justify-between items-center text-sm text-gray-500">
+            <p>vPatient システム | 技術スタック 5/12</p>
+            <div class="flex items-center">
+                <i class="fas fa-arrow-right text-indigo-500 mr-2"></i>
+                <span>最新技術による革新的システム構築</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

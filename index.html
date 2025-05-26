@@ -6,7 +6,14 @@ title: vPatient システム提案 - はじめに・提案背景
 <style>
 .slide-wrapper {
     width: 100%;
-    height: 100%;
+    min-height: 720px;
+    max-height: 800px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.5rem;
 }
 
 .tab-container {
@@ -59,30 +66,7 @@ title: vPatient システム提案 - はじめに・提案背景
 
 .content-wrapper {
     margin-top: 60px;
-    padding-top: 2rem;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-.video-button {
-    margin-top: 10px; 
-    padding: 10px 20px; 
-    font-size: 16px; 
-    background: #1e40af; 
-    color: white; 
-    border: none; 
-    border-radius: 5px; 
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.video-button:hover {
-    background: #1d4ed8;
-    transform: scale(1.02);
+    padding-top: 20px;
 }
 </style>
 
@@ -104,104 +88,69 @@ function navigateToPage(page) {
 }
 
 function setActiveTab() {
-    // 現在のページのファイル名を取得
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     
-    // 全てのタブからactiveクラスを削除
     document.querySelectorAll('.tab-item').forEach(tab => {
         tab.classList.remove('active');
     });
     
-    // 現在のページに対応するタブにactiveクラスを追加
     const activeTab = document.querySelector(`[data-page="${currentPage}"]`);
     if (activeTab) {
         activeTab.classList.add('active');
     } else {
-        // デフォルトで「はじめに」をアクティブにする
         document.querySelector('[data-page="index.html"]').classList.add('active');
     }
 }
 
-// シンプルな動画再生関数
-function playVideo() {
-    const video = document.getElementById('mainVideo');
-    if (video) {
-        video.play().catch(function(error) {
-            console.log('動画再生エラー:', error);
-            alert('動画の再生に失敗しました。下のリンクから直接動画ファイルを開いてください。');
-        });
-    }
-}
-
-// ページ読み込み時の処理
 document.addEventListener('DOMContentLoaded', function() {
-    // アクティブタブを設定
     setActiveTab();
 });
 </script>
 
 <div class="content-wrapper">
     <!-- 動画セクション -->
-    <div class="slide-wrapper">
-        <div style="text-align: center; padding: 2rem;">
-            <h2 style="margin-bottom: 1rem; color: #1e40af;">システム導入動画</h2>
-            
-            <!-- シンプルな動画要素 -->
-            <video 
-                id="mainVideo" 
-                width="80%" 
-                height="auto" 
-                controls 
-                loop
-                autoplay
-                muted
-                preload="auto"
-                playsinline
-                style="max-width: 800px; border: 1px solid #ccc;"
-            >
-                <source src="dounyu.mp4" type="video/mp4">
-                <source src="./dounyu.mp4" type="video/mp4">
-                動画を再生できません。
-            </video>
-            
-            <br><br>
-            
-            <!-- シンプルなボタン -->
-            <button onclick="playVideo()" style="
-                padding: 15px 30px; 
-                font-size: 18px; 
-                background: #1e40af; 
-                color: white; 
-                border: none; 
-                border-radius: 8px; 
-                cursor: pointer;
-            ">▶ 動画を再生</button>
-            
-            <br><br>
-            
-            <!-- 直接リンク -->
-            <p>動画が再生されない場合は、こちらから直接ご覧ください：</p>
+    <div class="slide-wrapper" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 0; margin: 0;">
+        <video controls width="90%" style="max-width: 1200px; border: 1px solid #ccc;">
+            <source src="dounyu.mp4" type="video/mp4">
+            動画を再生できません。
+        </video>
+
+        <!-- 直接リンク -->
+        <div style="margin-top: 0.5rem; text-align: center;">
             <a href="dounyu.mp4" target="_blank" style="
                 display: inline-block;
-                padding: 10px 20px;
+                padding: 6px 12px;
                 background: #059669;
                 color: white;
                 text-decoration: none;
-                border-radius: 5px;
+                border-radius: 4px;
+                font-size: 12px;
                 font-weight: bold;
             ">動画ファイルを開く</a>
         </div>
     </div>
 
     <div class="slide-wrapper">
-    {% include_relative slide/top/hajimeni.html %}
+        {% include_relative slide/top/hajimeni.html %}
     </div>
 
     <div class="slide-wrapper">
-    {% include_relative slide/top/mondai.html %}
+        {% include_relative slide/top/mondai.html %}
     </div>
 
     <div class="slide-wrapper">
-    {% include_relative slide/top/jikisys.html %}
+        {% include_relative slide/top/jikisys.html %}
     </div>
-</div>
+
+    <div class="slide-wrapper">
+        {% include_relative slide/top/infra.html %}
+    </div>
+
+    <div class="slide-wrapper">
+        {% include_relative slide/top/tech.html %}
+    </div>
+
+    <div class="slide-wrapper">
+        {% include_relative slide/top/dispdata.html %}
+    </div>
+</div> 

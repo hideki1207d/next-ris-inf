@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>動画テスト</title>
+</head>
+<body>
+    <h1>動画再生テスト</h1>
+    
+    <h2>dounyu.mp4</h2>
+    <video controls width="600" style="border: 1px solid #ccc;">
+        <source src="dounyu.mp4" type="video/mp4">
+        動画を再生できません。
+    </video>
+    
+    <h2>uketuke.mp4</h2>
+    <video controls width="600" style="border: 1px solid #ccc;">
+        <source src="uketuke.mp4" type="video/mp4">
+        動画を再生できません。
+    </video>
+    
+    <h2>動画ファイル直接リンク</h2>
+    <p><a href="dounyu.mp4" target="_blank">dounyu.mp4を開く</a></p>
+    <p><a href="uketuke.mp4" target="_blank">uketuke.mp4を開く</a></p>
+    
+    <script>
+    console.log('ページが読み込まれました');
+    
+    // 動画要素を取得してログ出力
+    const videos = document.querySelectorAll('video');
+    videos.forEach((video, index) => {
+        console.log(`Video ${index + 1}:`, video);
+        
+        video.addEventListener('loadstart', () => {
+            console.log(`Video ${index + 1}: 読み込み開始`);
+        });
+        
+        video.addEventListener('loadedmetadata', () => {
+            console.log(`Video ${index + 1}: メタデータ読み込み完了`);
+        });
+        
+        video.addEventListener('canplay', () => {
+            console.log(`Video ${index + 1}: 再生可能`);
+        });
+        
+        video.addEventListener('error', (e) => {
+            console.error(`Video ${index + 1}: エラー`, e);
+        });
+    });
+    </script>
+</body>
+</html> 
