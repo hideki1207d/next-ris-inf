@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title | default: site.title }}</title>
+    <meta name="description" content="{{ page.description | default: site.description }}">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: auto !important;
+            overflow-y: auto !important;
+            background: #f8fafc;
+        }
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2rem 0;
+            align-items: center;
+        }
+        .slide-wrapper {
+            width: 1280px;
+            height: 900px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            position: relative;
+        }
+        /* Override individual slide styles */
+        .slide-wrapper body {
+            overflow: hidden !important;
+        }
+        .slide-wrapper .slide {
+            width: 1280px !important;
+            height: 900px !important;
+            min-height: 900px !important;
+            max-height: none !important;
+            overflow: visible !important;
+            padding: 3rem !important;
+            box-sizing: border-box !important;
+        }
+        /* Ensure content fits within slide bounds */
+        .slide-wrapper .slide > * {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        {{ content }}
+    </div>
+</body>
+</html> 

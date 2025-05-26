@@ -1,0 +1,15 @@
+AddType video/mp4 .mp4
+AddType video/webm .webm
+AddType video/ogg .ogv
+
+# 動画ファイルのキャッシュ設定
+<FilesMatch "\.(mp4|webm|ogv)$">
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+    Header set Cache-Control "public, max-age=2592000"
+</FilesMatch>
+
+# CORS設定（必要に応じて）
+<FilesMatch "\.(mp4|webm|ogv)$">
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch> 

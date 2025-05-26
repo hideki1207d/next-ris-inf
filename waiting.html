@@ -1,0 +1,110 @@
+---
+layout: default
+title: vPatient システム提案 - 待合リスト
+---
+
+<style>
+.slide-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.tab-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: white;
+    border-bottom: 2px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tab-nav {
+    display: flex;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.tab-item {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    background: #f8fafc;
+    border: none;
+    border-right: 1px solid #e2e8f0;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #64748b;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.tab-item:last-child {
+    border-right: none;
+}
+
+.tab-item:hover {
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.tab-item.active {
+    background: #1e40af;
+    color: white;
+    font-weight: 600;
+}
+
+.content-wrapper {
+    margin-top: 60px;
+    padding-top: 2rem;
+}
+</style>
+
+<div class="tab-container">
+    <div class="tab-nav">
+        <button class="tab-item" data-page="index.html" onclick="navigateToPage('index.html')">はじめに</button>
+        <button class="tab-item" data-page="reception.html" onclick="navigateToPage('reception.html')">受付</button>
+        <button class="tab-item" data-page="waiting.html" onclick="navigateToPage('waiting.html')">待合リスト</button>
+        <button class="tab-item" data-page="examination.html" onclick="navigateToPage('examination.html')">検査</button>
+        <button class="tab-item" data-page="monthly.html" onclick="navigateToPage('monthly.html')">月別スケジュール</button>
+        <button class="tab-item" data-page="daily.html" onclick="navigateToPage('daily.html')">日別スケジュール</button>
+        <button class="tab-item" data-page="tv.html" onclick="navigateToPage('tv.html')">待合TV</button>
+    </div>
+</div>
+
+<script>
+function navigateToPage(page) {
+    window.location.href = page;
+}
+
+function setActiveTab() {
+    // 現在のページのファイル名を取得
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    // 全てのタブからactiveクラスを削除
+    document.querySelectorAll('.tab-item').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // 現在のページに対応するタブにactiveクラスを追加
+    const activeTab = document.querySelector(`[data-page="${currentPage}"]`);
+    if (activeTab) {
+        activeTab.classList.add('active');
+    } else {
+        // デフォルトで「はじめに」をアクティブにする
+        document.querySelector('[data-page="index.html"]').classList.add('active');
+    }
+}
+
+// ページ読み込み時にアクティブタブを設定
+document.addEventListener('DOMContentLoaded', setActiveTab);
+</script>
+
+<div class="content-wrapper">
+    <div class="slide-wrapper">
+    {% include_relative slide/waiting/waitinglist.html %}
+    </div>
+</div>

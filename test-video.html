@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>動画テスト</title>
+</head>
+<body>
+    <h1>動画再生テスト</h1>
+    
+    <h2>方法1: 基本的な動画タグ</h2>
+    <video width="400" controls>
+        <source src="dounyu.mp4" type="video/mp4">
+        動画を再生できません。
+    </video>
+    
+    <h2>方法2: 自動再生（ミュート）</h2>
+    <video width="400" controls autoplay muted loop>
+        <source src="dounyu.mp4" type="video/mp4">
+        動画を再生できません。
+    </video>
+    
+    <h2>方法3: 直接リンク</h2>
+    <p><a href="dounyu.mp4" target="_blank">動画ファイルを直接開く</a></p>
+    
+    <h2>方法4: JavaScriptで強制再生</h2>
+    <video id="testVideo" width="400" controls>
+        <source src="dounyu.mp4" type="video/mp4">
+        動画を再生できません。
+    </video>
+    <br>
+    <button onclick="forcePlay()">強制再生</button>
+    
+    <script>
+    function forcePlay() {
+        const video = document.getElementById('testVideo');
+        video.play().then(() => {
+            alert('再生開始しました');
+        }).catch(error => {
+            alert('再生エラー: ' + error.message);
+        });
+    }
+    </script>
+    
+    <h2>動画情報</h2>
+    <p>ファイル名: dounyu.mp4</p>
+    <p>ファイルサイズ: 約7MB</p>
+    
+</body>
+</html> 

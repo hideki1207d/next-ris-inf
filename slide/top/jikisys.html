@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>次期システム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .solution-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-left: 6px solid #10b981;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .solution-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .solution-icon {
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .accent-line {
+            width: 80px;
+            height: 6px;
+            background: linear-gradient(90deg, #f59e0b, #d97706);
+            margin: 1rem 0;
+            border-radius: 3px;
+        }
+        .success-badge {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            border-radius: 20px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .transform-arrow {
+            color: #f59e0b;
+            font-size: 3rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .tech-highlight {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            transition: all 0.2s ease;
+        }
+        .tech-highlight:hover {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.2);
+        }
+        .deployment-option {
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            color: white;
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .deployment-option:hover {
+            transform: scale(1.05);
+        }
+        .cloud-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide p-12">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center mb-4">
+                <div class="success-badge mr-4">
+                    <i class="fas fa-rocket mr-2"></i>
+                    SOLUTION
+                </div>
+                <h1 class="text-4xl font-bold text-green-800">次期システム</h1>
+            </div>
+            <div class="accent-line"></div>
+            <p class="text-lg text-gray-700">現行システムの問題点を解決する最新技術による全面刷新</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-2 gap-12 h-auto">
+            <!-- Left Column: Solution Approach -->
+            <div>
+                <div class="solution-card p-8 mb-6">
+                    <div class="flex items-center mb-6">
+                        <div class="solution-icon">
+                            <i class="fas fa-lightbulb text-2xl text-green-500"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h2 class="text-2xl font-bold text-green-800">解決アプローチ</h2>
+                            <p class="text-green-600 text-sm">モダンな技術スタックによる革新</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="tech-highlight">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold text-green-800">デザイン柔軟性の向上</span>
+                                    <p class="text-sm text-gray-600">レスポンシブデザイン・クロスプラットフォーム対応</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tech-highlight">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold text-green-800">運用コストの削減</span>
+                                    <p class="text-sm text-gray-600">オープンソース技術・Linuxベースインフラ</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tech-highlight">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                <div>
+                                    <span class="font-semibold text-green-800">現代的なユーザー体験</span>
+                                    <p class="text-sm text-gray-600">ダークモード・アクセシビリティ完全対応</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transform Arrow -->
+                <div class="text-center">
+                    <i class="fas fa-arrow-down transform-arrow"></i>
+                </div>
+            </div>
+
+            <!-- Right Column: Technology Stack & Infrastructure -->
+            <div>
+                <div class="solution-card p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="solution-icon">
+                            <i class="fas fa-cogs text-2xl text-green-500"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h2 class="text-2xl font-bold text-green-800">技術選定</h2>
+                            <p class="text-green-600 text-sm">最適なインフラ構成・技術スタック</p>
+                        </div>
+                    </div>
+
+                    <!-- Infrastructure Section -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-green-800 mb-3">
+                            <i class="fas fa-server mr-2"></i>インフラ構成
+                        </h3>
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <div class="flex items-center mb-2">
+                                <i class="fab fa-linux text-green-600 mr-2"></i>
+                                <span class="font-semibold text-green-800">Linux ベースOS</span>
+                            </div>
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-database text-green-600 mr-2"></i>
+                                <span class="font-semibold text-green-800">PostgreSQL データベース</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-shield-alt text-green-600 mr-2"></i>
+                                <span class="font-semibold text-green-800">Supabase 認証基盤</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Technology Stack -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-green-800 mb-3">
+                            <i class="fas fa-code mr-2"></i>技術スタック
+                        </h3>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div class="bg-blue-50 p-2 rounded border border-blue-200">
+                                <div class="font-semibold text-blue-800">フロントエンド</div>
+                                <div class="text-blue-600">React / TailwindCSS</div>
+                            </div>
+                            <div class="bg-green-50 p-2 rounded border border-green-200">
+                                <div class="font-semibold text-green-800">バックエンド</div>
+                                <div class="text-green-600">Node.js / Next.js</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deployment Options -->
+        <div class="mt-8">
+            <h3 class="text-xl font-bold text-blue-900 mb-4 text-center">
+                <i class="fas fa-network-wired mr-2"></i>導入オプション
+            </h3>
+            <div class="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <div class="deployment-option">
+                    <i class="fas fa-building cloud-icon"></i>
+                    <div class="font-semibold">オンプレミス型</div>
+                    <div class="text-sm opacity-90">現行運用を踏襲</div>
+                </div>
+                <div class="deployment-option">
+                    <i class="fas fa-cloud cloud-icon"></i>
+                    <div class="font-semibold">クラウド対応</div>
+                    <div class="text-sm opacity-90">将来的な選択肢</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-8 flex justify-between items-center text-sm text-gray-500">
+            <p>vPatient システム | 次期システム概要 3/7</p>
+            <div class="flex items-center">
+                <i class="fas fa-arrow-right text-green-500 mr-2"></i>
+                <span>革新的な技術による問題解決</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

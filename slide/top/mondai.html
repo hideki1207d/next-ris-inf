@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>現行システムの問題点</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .problem-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-left: 6px solid #ef4444;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .problem-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .problem-icon {
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .accent-line {
+            width: 80px;
+            height: 6px;
+            background: linear-gradient(90deg, #f59e0b, #d97706);
+            margin: 1rem 0;
+            border-radius: 3px;
+        }
+        .issue-item {
+            background: rgba(239, 68, 68, 0.05);
+            border: 1px solid rgba(239, 68, 68, 0.1);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            transition: all 0.2s ease;
+        }
+        .issue-item:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+        .warning-badge {
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            color: white;
+            border-radius: 20px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .cost-indicator {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 0.75rem;
+        }
+        @keyframes pulse-warning {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .pulse-warning {
+            animation: pulse-warning 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide p-12">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center mb-4">
+                <div class="warning-badge pulse-warning mr-4">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    ISSUES
+                </div>
+                <h1 class="text-4xl font-bold text-red-800">現行システムの問題点</h1>
+            </div>
+            <div class="accent-line"></div>
+            <p class="text-lg text-gray-700">次期システム導入の必要性</p>
+        </div>
+
+        <!-- Problems Grid -->
+        <div class="grid grid-cols-2 gap-8 h-auto">
+            <!-- Design Flexibility Issues -->
+            <div class="problem-card p-8">
+                <div class="flex items-center mb-6">
+                    <div class="problem-icon">
+                        <i class="fas fa-palette text-2xl text-red-500"></i>
+                    </div>
+                    <div class="ml-4">
+                        <h2 class="text-2xl font-bold text-red-800">デザインの柔軟性</h2>
+                        <p class="text-red-600 text-sm">技術的制約による課題</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="issue-item">
+                        <div class="flex items-center">
+                            <i class="fas fa-desktop text-red-500 mr-3"></i>
+                            <div>
+                                <span class="font-semibold text-red-800">WindowsForm制約</span>
+                                <p class="text-sm text-gray-600">レガシー技術による限界</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="issue-item">
+                        <div class="flex items-center">
+                            <i class="fas fa-tablet-alt text-red-500 mr-3"></i>
+                            <div>
+                                <span class="font-semibold text-red-800">デバイス移植困難</span>
+                                <p class="text-sm text-gray-600">タブレット・スマートフォン非対応</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="issue-item">
+                        <div class="flex items-center">
+                            <i class="fas fa-moon text-red-500 mr-3"></i>
+                            <div>
+                                <span class="font-semibold text-red-800">ダークモード未対応</span>
+                                <p class="text-sm text-gray-600">現代的なUI要求に対応不可</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="issue-item">
+                        <div class="flex items-center">
+                            <i class="fas fa-search-plus text-red-500 mr-3"></i>
+                            <div>
+                                <span class="font-semibold text-red-800">文字拡大・縮小制限</span>
+                                <p class="text-sm text-gray-600">アクセシビリティ対応不足</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cost Issues -->
+            <div class="problem-card p-8">
+                <div class="flex items-center mb-6">
+                    <div class="problem-icon">
+                        <i class="fas fa-yen-sign text-2xl text-red-500"></i>
+                    </div>
+                    <div class="ml-4">
+                        <h2 class="text-2xl font-bold text-red-800">コスト課題</h2>
+                        <p class="text-red-600 text-sm">高額なライセンス・運用費用</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="issue-item">
+                        <div class="flex items-center">
+                            <div class="cost-indicator">
+                                <i class="fas fa-server text-sm"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-red-800">Windows Server導入コスト</span>
+                                <p class="text-sm text-gray-600">高額なライセンス料金</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="issue-item">
+                        <div class="flex items-center">
+                            <div class="cost-indicator">
+                                <i class="fas fa-database text-sm"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-red-800">Oracle Database導入コスト</span>
+                                <p class="text-sm text-gray-600">企業向けDB高額運用費</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="issue-item">
+                        <div class="flex items-center">
+                            <div class="cost-indicator">
+                                <i class="fas fa-tools text-sm"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-red-800">開発ツール使用コスト</span>
+                                <p class="text-sm text-gray-600">Microsoft開発環境ライセンス</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cost Summary -->
+                <div class="mt-6 bg-gradient-to-r from-red-50 to-orange-50 p-4 rounded-lg border border-red-200">
+                    <div class="flex items-center justify-between">
+                        <span class="text-red-800 font-semibold">総運用コスト</span>
+                        <div class="flex items-center">
+                            <i class="fas fa-arrow-up text-red-500 mr-2"></i>
+                            <span class="text-xl font-bold text-red-600">高額</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-8 flex justify-between items-center text-sm text-gray-500">
+            <p>vPatient システム | 現行システム課題分析 2/7</p>
+            <div class="flex items-center">
+                <i class="fas fa-arrow-right text-orange-500 mr-2"></i>
+                <span>次期システムでの解決策を検討</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
