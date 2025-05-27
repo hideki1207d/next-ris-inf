@@ -9,6 +9,62 @@ body {
     overflow-x: hidden;
 }
 
+/* サイドバー目次のスタイル */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 60px;
+    width: 250px;
+    height: calc(100vh - 60px);
+    background: #f8fafc;
+    border-right: 2px solid #e2e8f0;
+    padding: 1rem;
+    overflow-y: auto;
+    z-index: 999;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h3 {
+    color: #1e40af;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-item {
+    margin-bottom: 0.5rem;
+}
+
+.toc-link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    color: #64748b;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.toc-link:hover {
+    background: #e2e8f0;
+    color: #1e40af;
+    border-left-color: #1e40af;
+}
+
+.toc-link.active {
+    background: #1e40af;
+    color: white;
+    border-left-color: #1d4ed8;
+}
+
 .slide-wrapper {
     width: 100%;
     min-height: 720px;
@@ -18,6 +74,7 @@ body {
     margin-bottom: 1rem;
     border-bottom: 1px solid #e2e8f0;
     padding-bottom: 1rem;
+    scroll-margin-top: 80px; /* タブの高さ分のオフセット */
 }
 
 .tab-container {
@@ -70,11 +127,40 @@ body {
 
 .content-wrapper {
     margin-top: 60px;
+    margin-left: 250px; /* サイドバーの幅分のマージン */
     padding-top: 20px;
     padding-bottom: 2rem;
     min-height: calc(100vh - 60px);
 }
 </style>
+
+<!-- サイドバー目次 -->
+<div class="sidebar">
+    <h3>📋 Index</h3>
+    <ul class="toc-list">
+        <li class="toc-item">
+            <a href="#video-section" class="toc-link">🎥 導入動画</a>
+        </li>
+        <li class="toc-item">
+            <a href="#hajimeni" class="toc-link">🏥 はじめに</a>
+        </li>
+        <li class="toc-item">
+            <a href="#mondai" class="toc-link">⚠️ 現在の問題</a>
+        </li>
+        <li class="toc-item">
+            <a href="#jikisys" class="toc-link">💡 次期システム</a>
+        </li>
+        <li class="toc-item">
+            <a href="#infra" class="toc-link">🏗️ インフラ構成</a>
+        </li>
+        <li class="toc-item">
+            <a href="#tech" class="toc-link">⚙️ 技術スタック</a>
+        </li>
+        <li class="toc-item">
+            <a href="#dispdata" class="toc-link">📊 表示データ</a>
+        </li>
+    </ul>
+</div>
 
 <div class="tab-container">
     <div class="tab-nav">
@@ -109,14 +195,63 @@ function setActiveTab() {
     }
 }
 
+// 目次のアクティブ状態を更新する関数
+function updateTocActive() {
+    const sections = document.querySelectorAll('.slide-wrapper[id]');
+    const tocLinks = document.querySelectorAll('.toc-link');
+    
+    let currentSection = '';
+    
+    sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 100 && rect.bottom >= 100) {
+            currentSection = section.id;
+        }
+    });
+    
+    tocLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + currentSection) {
+            link.classList.add('active');
+        }
+    });
+}
+
+// スムーズスクロール機能
+function smoothScrollTo(targetId) {
+    const target = document.getElementById(targetId);
+    if (target) {
+        const offsetTop = target.offsetTop - 80; // タブの高さ分のオフセット
+        window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+        });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     setActiveTab();
+    
+    // 目次リンクのクリックイベント
+    document.querySelectorAll('.toc-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            smoothScrollTo(targetId);
+        });
+    });
+    
+    // スクロール時の目次アクティブ状態更新
+    window.addEventListener('scroll', updateTocActive);
+    
+    // 初期状態の目次アクティブ状態設定
+    updateTocActive();
 });
 </script>
 
 <div class="content-wrapper">
     <!-- 動画セクション -->
-    <div class="slide-wrapper" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 0; margin: 0;">
+    <div id="video-section" class="slide-wrapper" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 0; margin: 0;">
         <video 
             controls 
             autoplay 
@@ -145,27 +280,27 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 
-    <div class="slide-wrapper">
+    <div id="hajimeni" class="slide-wrapper">
         {% include_relative slide/top/hajimeni.html %}
     </div>
 
-    <div class="slide-wrapper">
+    <div id="mondai" class="slide-wrapper">
         {% include_relative slide/top/mondai.html %}
     </div>
 
-    <div class="slide-wrapper">
+    <div id="jikisys" class="slide-wrapper">
         {% include_relative slide/top/jikisys.html %}
     </div>
 
-    <div class="slide-wrapper">
+    <div id="infra" class="slide-wrapper">
         {% include_relative slide/top/infra.html %}
     </div>
 
-    <div class="slide-wrapper">
+    <div id="tech" class="slide-wrapper">
         {% include_relative slide/top/tech.html %}
     </div>
 
-    <div class="slide-wrapper">
+    <div id="dispdata" class="slide-wrapper">
         {% include_relative slide/top/dispdata.html %}
     </div>
 </div> 
