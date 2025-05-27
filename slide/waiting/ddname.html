@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>同性同名患者識別機能</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .accent-line {
+            width: 100px;
+            height: 6px;
+            background: linear-gradient(90deg, #dc2626 0%, #f59e0b 50%, #dc2626 100%);
+            margin: 0.5rem 0 1.5rem 0;
+            border-radius: 3px;
+            box-shadow: 0 3px 6px rgba(220, 38, 38, 0.4);
+            animation: pulse-line 3s ease-in-out infinite;
+        }
+        @keyframes pulse-line {
+            0%, 100% { box-shadow: 0 3px 6px rgba(220, 38, 38, 0.4); }
+            50% { box-shadow: 0 3px 12px rgba(220, 38, 38, 0.7); }
+        }
+        .safety-header {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-left: 8px solid #dc2626;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        .safety-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .alert-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 6px solid #dc2626;
+            position: relative;
+            overflow: hidden;
+        }
+        .alert-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.25);
+        }
+        .alert-card.warning {
+            border-left-color: #f59e0b;
+            background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+        }
+        .alert-card.danger {
+            border-left-color: #dc2626;
+            background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+            animation: alert-glow 3s ease-in-out infinite;
+        }
+        @keyframes alert-glow {
+            0%, 100% { box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.15), 0 0 20px rgba(220, 38, 38, 0.2); }
+            50% { box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.15), 0 0 40px rgba(220, 38, 38, 0.4); }
+        }
+        .alert-icon {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(220, 38, 38, 0.05) 100%);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            animation: pulse-icon 2.5s ease-in-out infinite;
+        }
+        @keyframes pulse-icon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .alert-icon.warning {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);
+        }
+        .mechanism-step {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .mechanism-step:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.15);
+        }
+        .mechanism-step::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -15px;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid #dc2626;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            z-index: 5;
+        }
+        .mechanism-step:last-child::after {
+            display: none;
+        }
+        .critical-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            animation: bounce-critical 2s infinite;
+            box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+        }
+        @keyframes bounce-critical {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        .danger-text {
+            background: linear-gradient(120deg, #fecaca 0%, #f87171 100%);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            color: #7f1d1d;
+            display: inline-block;
+        }
+        .safety-stats {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #dc2626 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 8px rgba(220, 38, 38, 0.2);
+        }
+        .alert-demo {
+            background: linear-gradient(135deg, #fef2f2 0%, #fff1f2 100%);
+            border: 3px dashed #dc2626;
+            border-radius: 16px;
+            position: relative;
+            animation: alert-border 2s ease-in-out infinite;
+        }
+        @keyframes alert-border {
+            0%, 100% { border-color: #dc2626; }
+            50% { border-color: #f59e0b; }
+        }
+        .blinking-alert {
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .prevention-shield {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
+            animation: shield-glow 3s ease-in-out infinite;
+        }
+        @keyframes shield-glow {
+            0%, 100% { box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3); }
+            50% { box-shadow: 0 8px 24px rgba(16, 185, 129, 0.5); }
+        }
+        .patient-image {
+            width: 200px;
+            height: 133px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            border: 3px solid #dc2626;
+            object-fit: cover;
+            animation: image-glow 3s ease-in-out infinite;
+        }
+        @keyframes image-glow {
+            0%, 100% { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 0 20px rgba(220, 38, 38, 0.3); }
+            50% { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 0 30px rgba(220, 38, 38, 0.5); }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide p-8">
+        <!-- Safety Header -->
+        <div class="safety-header p-6 mb-6 relative z-10">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-5xl font-black text-red-800">同性同名患者識別</h1>
+                    <div class="accent-line"></div>
+                    <p class="text-xl text-red-700 font-bold">医療事故防止の<span class="danger-text">重要セーフティ機能</span></p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="alert-icon">
+                        <i class="fas fa-exclamation-triangle text-4xl text-red-600 blinking-alert"></i>
+                    </div>
+                    <img src="https://page1.genspark.site/v1/base64_upload/ba37dac494571aa1b2eb806d9938a554" alt="同性同名患者例" class="patient-image">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-12 gap-6">
+            <!-- Risk Scenario -->
+            <div class="col-span-4">
+                <div class="alert-card danger p-5 relative">
+                    <div class="critical-badge">CRITICAL</div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-users text-2xl text-red-600"></i>
+                        </div>
+                        <h2 class="text-xl font-bold text-red-800">リスクシナリオ</h2>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-white bg-opacity-90 rounded-lg p-4 border-l-4 border-red-500">
+                            <div class="flex items-start">
+                                <i class="fas fa-user-friends text-red-600 text-lg mt-1 mr-3"></i>
+                                <div>
+                                    <p class="font-bold text-gray-800">同姓同名患者</p>
+                                    <p class="text-sm text-gray-600">「田中 太郎」が複数名</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white bg-opacity-90 rounded-lg p-4 border-l-4 border-amber-500">
+                            <div class="flex items-start">
+                                <i class="fas fa-exclamation-circle text-amber-600 text-lg mt-1 mr-3"></i>
+                                <div>
+                                    <p class="font-bold text-gray-800">誤認リスク</p>
+                                    <p class="text-sm text-gray-600">間違った患者の受付</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white bg-opacity-90 rounded-lg p-4 border-l-4 border-green-500">
+                            <div class="flex items-start">
+                                <div class="prevention-shield mr-3">
+                                    <i class="fas fa-shield-alt text-lg"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800">アラート防止</p>
+                                    <p class="text-sm text-gray-600">自動識別・事故回避</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Alert Mechanism -->
+            <div class="col-span-8">
+                <h2 class="text-2xl font-bold text-red-800 mb-4">
+                    <i class="fas fa-shield-alt mr-2 text-green-600"></i>アラート表示メカニズム
+                </h2>
+                
+                <!-- Alert Demo -->
+                <div class="alert-demo p-5 mb-5">
+                    <div class="flex items-center justify-between bg-white rounded-lg p-4 shadow-lg">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-exclamation-triangle text-red-600 text-xl blinking-alert"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-red-800 text-lg">同姓同名患者検出</p>
+                                <p class="text-sm text-gray-600">「田中 太郎」- 2名の患者が存在します</p>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-red-700 transition-colors">
+                                <i class="fas fa-eye mr-2"></i>詳細確認
+                            </button>
+                            <button class="bg-gray-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-gray-700 transition-colors">
+                                キャンセル
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Key Features -->
+                <div class="grid grid-cols-4 gap-3">
+                    <div class="alert-card p-4">
+                        <div class="alert-icon warning mb-3">
+                            <i class="fas fa-search text-2xl text-amber-600"></i>
+                        </div>
+                        <h3 class="font-bold text-amber-800 mb-2 text-sm">自動検出</h3>
+                        <p class="text-xs text-gray-700">同姓同名の瞬時識別</p>
+                    </div>
+                    
+                    <div class="alert-card danger p-4">
+                        <div class="alert-icon mb-3">
+                            <i class="fas fa-bell text-2xl text-red-600"></i>
+                        </div>
+                        <h3 class="font-bold text-red-800 mb-2 text-sm">即座アラート</h3>
+                        <p class="text-xs text-gray-700">明確な警告表示</p>
+                    </div>
+                    
+                    <div class="alert-card p-4">
+                        <div class="alert-icon warning mb-3">
+                            <i class="fas fa-id-card text-2xl text-amber-600"></i>
+                        </div>
+                        <h3 class="font-bold text-amber-800 mb-2 text-sm">詳細確認</h3>
+                        <p class="text-xs text-gray-700">生年月日・ID比較</p>
+                    </div>
+                    
+                    <div class="alert-card p-4">
+                        <div class="prevention-shield mb-3">
+                            <i class="fas fa-ban text-lg"></i>
+                        </div>
+                        <h3 class="font-bold text-green-800 mb-2 text-sm">事故防止</h3>
+                        <p class="text-xs text-gray-700">医療事故回避</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Safety Process Flow -->
+        <div class="mt-6">
+            <h2 class="text-2xl font-bold text-red-800 mb-4">
+                <i class="fas fa-cogs mr-2"></i>安全確認プロセス
+            </h2>
+            
+            <div class="flex justify-between items-center">
+                <div class="mechanism-step p-4 text-center w-60">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-user-check text-xl text-blue-600"></i>
+                    </div>
+                    <h3 class="font-bold text-blue-800 text-sm mb-1">患者選択</h3>
+                    <p class="text-xs text-gray-600">同姓同名患者リスト表示</p>
+                </div>
+                
+                <div class="mechanism-step p-4 text-center w-60">
+                    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-exclamation-triangle text-xl text-red-600 blinking-alert"></i>
+                    </div>
+                    <h3 class="font-bold text-red-800 text-sm mb-1">アラート発動</h3>
+                    <p class="text-xs text-gray-600">重複検出・警告表示</p>
+                </div>
+                
+                <div class="mechanism-step p-4 text-center w-60">
+                    <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-clipboard-check text-xl text-amber-600"></i>
+                    </div>
+                    <h3 class="font-bold text-amber-800 text-sm mb-1">詳細確認</h3>
+                    <p class="text-xs text-gray-600">生年月日・患者ID照合</p>
+                </div>
+                
+                <div class="mechanism-step p-4 text-center w-60">
+                    <div class="prevention-shield mx-auto mb-3">
+                        <i class="fas fa-check text-lg"></i>
+                    </div>
+                    <h3 class="font-bold text-green-800 text-sm mb-1">安全確定</h3>
+                    <p class="text-xs text-gray-600">正確な患者で受付実行</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="mt-3 text-right text-sm text-gray-500">
+            <p>vPatient システム | 同姓同名患者識別機能 12/16</p>
+        </div>
+    </div>
+</body>
+</html>
