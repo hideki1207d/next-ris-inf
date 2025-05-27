@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kensa.mp4 テスト</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        video {
+            width: 100%;
+            max-width: 800px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #1976d2;
+            color: white;
+        }
+        button:hover {
+            background: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <h1>kensa.mp4 動画再生テスト</h1>
+    
+    <div class="test-container">
+        <h2>テスト1: 基本的な動画要素</h2>
+        <video id="video1" controls>
+            <source src="kensa.mp4" type="video/mp4">
+            動画を再生できません。
+        </video>
+        <div id="status1" class="info">ステータス: 待機中</div>
+        <button onclick="testVideo1()">再生テスト</button>
+        <button onclick="checkVideo1()">動画情報確認</button>
+    </div>
+
+    <div class="test-container">
+        <h2>テスト2: 自動再生（ミュート）</h2>
+        <video id="video2" controls autoplay muted loop preload="auto" playsinline>
+            <source src="kensa.mp4" type="video/mp4">
+            動画を再生できません。
+        </video>
+        <div id="status2" class="info">ステータス: 自動再生テスト中</div>
+    </div>
+
+    <div class="test-container">
+        <h2>テスト3: 複数のソース指定</h2>
+        <video id="video3" controls>
+            <source src="kensa.mp4" type="video/mp4; codecs=avc1.42E01E,mp4a.40.2">
+            <source src="./kensa.mp4" type="video/mp4">
+            <source src="kensa.mp4" type="video/mp4">
+            動画を再生できません。
+        </video>
+        <div id="status3" class="info">ステータス: 待機中</div>
+        <button onclick="testVideo3()">再生テスト</button>
+    </div>
+
+    <div class="test-container">
+        <h2>テスト4: 直接リンク</h2>
+        <p><a href="kensa.mp4" target="_blank">kensa.mp4を直接開く</a></p>
+    </div>
+
+    <div class="test-container">
+        <h2>ブラウザ情報</h2>
+        <div id="browserInfo" class="info"></div>
+    </div>
+
+    <script>
+        // ブラウザ情報表示
+        document.getElementById('browserInfo').innerHTML = `
+            <strong>ユーザーエージェント:</strong> ${navigator.userAgent}<br>
+            <strong>プラットフォーム:</strong> ${navigator.platform}<br>
+            <strong>言語:</strong> ${navigator.language}
+        `;
+
+        function testVideo1() {
+            const video = document.getElementById('video1');
+            const status = document.getElementById('status1');
+            
+            video.play().then(() => {
+                status.innerHTML = '<div class="success">✓ 再生成功</div>';
+            }).catch(error => {
+                status.innerHTML = `<div class="error">✗ 再生失敗: ${error.message}</div>`;
+                console.error('Video1 play error:', error);
+            });
+        }
+
+        function checkVideo1() {
+            const video = document.getElementById('video1');
+            const status = document.getElementById('status1');
+            
+            status.innerHTML = `
+                <strong>動画情報:</strong><br>
+                - 読み込み状態: ${video.readyState}<br>
+                - ネットワーク状態: ${video.networkState}<br>
+                - 長さ: ${video.duration}秒<br>
+                - 現在時刻: ${video.currentTime}秒<br>
+                - 一時停止中: ${video.paused}<br>
+                - ミュート: ${video.muted}<br>
+                - ボリューム: ${video.volume}<br>
+                - ソースURL: ${video.currentSrc}
+            `;
+        }
+
+        function testVideo3() {
+            const video = document.getElementById('video3');
+            const status = document.getElementById('status3');
+            
+            video.play().then(() => {
+                status.innerHTML = '<div class="success">✓ 再生成功</div>';
+            }).catch(error => {
+                status.innerHTML = `<div class="error">✗ 再生失敗: ${error.message}</div>`;
+                console.error('Video3 play error:', error);
+            });
+        }
+
+        // 全ての動画要素にイベントリスナーを追加
+        ['video1', 'video2', 'video3'].forEach(id => {
+            const video = document.getElementById(id);
+            const status = document.getElementById(`status${id.slice(-1)}`);
+            
+            video.addEventListener('loadstart', () => console.log(`${id}: loadstart`));
+            video.addEventListener('loadedmetadata', () => console.log(`${id}: loadedmetadata`));
+            video.addEventListener('loadeddata', () => console.log(`${id}: loadeddata`));
+            video.addEventListener('canplay', () => console.log(`${id}: canplay`));
+            video.addEventListener('canplaythrough', () => console.log(`${id}: canplaythrough`));
+            video.addEventListener('play', () => console.log(`${id}: play`));
+            video.addEventListener('pause', () => console.log(`${id}: pause`));
+            video.addEventListener('ended', () => console.log(`${id}: ended`));
+            video.addEventListener('error', (e) => {
+                console.error(`${id}: error`, e);
+                const currentStatus = document.getElementById(`status${id.slice(-1)}`);
+                currentStatus.innerHTML += `<div class="error">エラー発生: ${e.message || 'Unknown error'}</div>`;
+            });
+        });
+
+        // ページ読み込み完了時の情報表示
+        window.addEventListener('load', () => {
+            console.log('ページ読み込み完了');
+            setTimeout(() => {
+                ['video1', 'video2', 'video3'].forEach(id => {
+                    const video = document.getElementById(id);
+                    console.log(`${id} readyState:`, video.readyState);
+                    console.log(`${id} networkState:`, video.networkState);
+                });
+            }, 2000);
+        });
+    </script>
+</body>
+</html> 
